@@ -9,8 +9,12 @@ int moyenne(int *);
 int main(void)
 {
     int valCapteur[8] = { 2, 56, 180, 60, 10, 1020, 65, 55 };
-    //int valCapteur[4] = {56, 60, 65, 55};
     int moyenne;
+    int mini;
+
+    for(int k=0 ; k<2 ; k++){
+        mini = min(valCapteur);
+    }
 
     int j;
     unsigned long duree;
