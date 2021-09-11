@@ -1,5 +1,3 @@
-exemple
-dev02.c
-dev02
-exemple.elf
-sujet.elf
+*.elf
+*.o
+*.sh
