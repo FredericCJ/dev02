@@ -1,80 +1,71 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/time.h>
+#include "sujet.h"
 
-int normaliseCapteur( int valCapteur[8] );
-int min(int *);
-int max(int *);
-int moyenne(int *);
+int *alter_array(int *array, int laps);
+int normaliseCapteur(int *valCapteur);
 
-int main(void)
-{
+int main(void){
     int valCapteur[8] = { 2, 56, 180, 60, 10, 1020, 65, 55 };
+    *(valCapteur+8) = '\0';
     int moyenne;
-    int mini;
 
-    for(int k=0 ; k<2 ; k++){
-        mini = min(valCapteur);
-    }
+    alter_array(valCapteur,2);
 
     int j;
     unsigned long duree;
     struct timeval debutCalcul, finCalcul;
+
+    // Heure debut du calcul
     gettimeofday(&debutCalcul,NULL);
+
+    // Refaire le calcul 10000 fois pour augmenter la durée de calcul
     for( j = 0; j < 10000; j++) {
         moyenne = normaliseCapteur(valCapteur);
     }
+
+    // Heure fin du calcul
     gettimeofday(&finCalcul,NULL);
+
     printf("moyenne %d\n", moyenne);
+
     duree = ((finCalcul.tv_sec - debutCalcul.tv_sec) * 1000000) + (finCalcul.tv_usec - debutCalcul.tv_usec);
     printf( "Durée %ld ms\n", duree );
+
+    return EXIT_SUCCESS;
 }
 
-int normaliseCapteur( int valCapteur[8] )
-{
-    int i;
+int normaliseCapteur(int *valCapteur){
+    int i = 0;
     int total=0;
     int moyenne;
 
     total = 0;
-    for( i = 0; i < 8; i++) {
+    while(valCapteur[i] != '\0'){
         total += valCapteur[i];
+        i++;
     }
-    moyenne = total / 8;
+    moyenne = total / i;
 
     return(moyenne);
 }
 
-int min(int *valCapteur){
-    int i = 0;
-    float max = 1024;
-    while(*(valCapteur+i) != '\0'){
-        if(*(valCapteur+i) <= max){
-            max = *(valCapteur+i);
+int *alter_array(int *array, int laps){
+    for(int i=0 ; i<laps ; i++){
+        int *maxi = find_max_addr(array);
+        int j = 0;
+        while(*(maxi+j) != '\0'){
+            *(maxi+j) = *(maxi+j+1);
+            j++;
         }
-        i++;
-    }
-    return max;
-}
-
-int max(int *valCapteur){
-    int i = 0;
-    float min = 0;
-    while(*(valCapteur+i) != '\0'){
-        if(*(valCapteur+i) >= min){
-            min = *(valCapteur+i);
+        int *mini = find_min_addr(array);
+        j = 0;
+        while(*(mini+j) != '\0'){
+            *(mini+j) = *(mini+j+1);
+            j++;
         }
-        i++;
-    }
-    return min;
-}
 
-int moyenne(int *valCapteur){
-    int i = 0;
-    int moyenne = 0;
-    while(*(valCapteur+i) != '\0'){
-        moyenne = *(valCapteur+i)+moyenne;
-        i++;
     }
-    moyenne = moyenne/i;
-    return moyenne;
+    return array;
 }
