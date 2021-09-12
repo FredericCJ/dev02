@@ -7,13 +7,19 @@ int *strip_extrema(int *array, int laps);
 int normaliseCapteur(int *valCapteur);
 
 int main(void){
-    int valCapteur[8] = { 2, 56, 180, 60, 10, 1020, 65, 55 };
-    *(valCapteur+8) = '\0';
+    int initialCapteur[8] = { 2, 56, 180, 60, 10, 1020, 65, 55 };
+    
+    int *valCapteur;
+    valCapteur = (int *)malloc(9*sizeof(int));
     int moyenne;
+
+    for(int i=0 ; i<8 ; i++)
+        *(valCapteur+i) = initialCapteur[i];
+    *(valCapteur+8) = '\0';
 
     strip_extrema(valCapteur,2);
 
-    int j;
+    long int j;
     unsigned long duree;
     struct timeval debutCalcul, finCalcul;
 
@@ -32,6 +38,8 @@ int main(void){
 
     duree = ((finCalcul.tv_sec - debutCalcul.tv_sec) * 1000000) + (finCalcul.tv_usec - debutCalcul.tv_usec);
     printf( "Durée %ld ms\n", duree );
+
+    free(valCapteur);
 
     return EXIT_SUCCESS;
 }

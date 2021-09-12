@@ -3,7 +3,7 @@ int *find_min_addr(int *array){
         return (int *)__INT_MAX__;
     
     int min_val = __INT_MAX__;
-    int *min_ptr;
+    int *min_ptr = array;
     int i =0;
 
     while(array[i] != '\0'){
@@ -22,7 +22,7 @@ int *find_max_addr(int *array){
         return (int *)(-__INT_MAX__);
     
     int max_val = -__INT_MAX__;
-    int *max_ptr;
+    int *max_ptr = array;
     int i = 0;
     //for(int i=0 ; i<size ; i++)
     while(array[i] != '\0'){
