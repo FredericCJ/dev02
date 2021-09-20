@@ -27,7 +27,7 @@ int main(void){
     gettimeofday(&debutCalcul,NULL);
 
     // Refaire le calcul 10000 fois pour augmenter la durée de calcul
-    for( j = 0; j < 10000; j++) {
+    for( j = 0; j < __INT64_MAX__; j++) {
         moyenne = normaliseCapteur(valCapteur);
     }
 
@@ -50,7 +50,7 @@ int normaliseCapteur(int *valCapteur){
     int moyenne;
 
     total = 0;
-    while(valCapteur[i] != '\0'){
+    while(valCapteur[i] != 0){
         total += valCapteur[i];
         i++;
     }
@@ -63,13 +63,13 @@ int *strip_extrema(int *array, int laps){
     for(int i=0 ; i<laps ; i++){
         int *maxi = find_max_addr(array);
         int j = 0;
-        while(*(maxi+j) != '\0'){
+        while(*(maxi+j) != 0){
             *(maxi+j) = *(maxi+j+1);
             j++;
         }
         int *mini = find_min_addr(array);
         j = 0;
-        while(*(mini+j) != '\0'){
+        while(*(mini+j) != 0){
             *(mini+j) = *(mini+j+1);
             j++;
         }
