@@ -10,7 +10,7 @@ all: $(EXEC)
 sujet.elf: $(OBJ)
 	@$(CC) -o $@ $^ $(LDFLAGS)
 
-sujet.o: sujet.h
+%.o: %.h
 
 %.o: %.c
 	@$(CC) -o $@ -c $< $(CFLAGS)
