@@ -15,7 +15,7 @@ int main(void){
 
     for(int i=0 ; i<8 ; i++)
         *(valCapteur+i) = initialCapteur[i];
-    *(valCapteur+8) = '\0';
+    *(valCapteur+8) = 0;
 
     strip_extrema(valCapteur,2);
 
