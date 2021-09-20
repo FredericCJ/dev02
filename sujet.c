@@ -3,7 +3,7 @@
 #include <sys/time.h>
 #include "sujet.h"
 
-int *strip_extrema(int *array, int laps);
+int strip_extrema(int *array, int laps);
 int normaliseCapteur(int *valCapteur);
 
 int main(void){
@@ -15,7 +15,7 @@ int main(void){
 
     for(int i=0 ; i<8 ; i++)
         *(valCapteur+i) = initialCapteur[i];
-    *(valCapteur+8) = 0;
+    *(valCapteur+8) = -__INT_MAX__;
 
     strip_extrema(valCapteur,2);
 
@@ -50,7 +50,7 @@ int normaliseCapteur(int *valCapteur){
     int moyenne;
 
     total = 0;
-    while(valCapteur[i] != 0){
+    while(valCapteur[i] != -__INT_MAX__){
         total += valCapteur[i];
         i++;
     }
@@ -59,21 +59,23 @@ int normaliseCapteur(int *valCapteur){
     return(moyenne);
 }
 
-int *strip_extrema(int *array, int laps){
+int strip_extrema(int *array, int laps){
     for(int i=0 ; i<laps ; i++){
         int *maxi = find_max_addr(array);
         int j = 0;
-        while(*(maxi+j) != 0){
+        while(*(maxi+j) != -__INT_MAX__){
             *(maxi+j) = *(maxi+j+1);
             j++;
         }
+    }
+    for(int i=0 ; i<laps ; i++){
         int *mini = find_min_addr(array);
-        j = 0;
-        while(*(mini+j) != 0){
+        int j = 0;
+        while(*(mini+j) != -__INT_MAX__){
             *(mini+j) = *(mini+j+1);
             j++;
         }
 
     }
-    return array;
+    return EXIT_SUCCESS;
 }
